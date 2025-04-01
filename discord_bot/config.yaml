@@ -2,8 +2,10 @@ name: "Discord Bot"
 version: "1.0.0"
 slug: "discord_bot"
 description: "Runs Craig’s Discord bot in the background"
+url: "https://github.com/cttautomations/ha-discord-bot-addon"
 startup: services
 boot: auto
+init: false
 host_network: true
 options:
   discord_token: ""
