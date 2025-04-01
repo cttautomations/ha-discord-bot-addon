@@ -1,1 +1,11 @@
-
+name: "Discord Bot"
+version: "1.0.0"
+slug: "discord_bot"
+description: "Runs Craig’s Discord bot in the background"
+startup: services
+boot: auto
+host_network: true
+options:
+  discord_token: ""
+schema:
+  discord_token: str
