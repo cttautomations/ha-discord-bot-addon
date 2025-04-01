@@ -10,4 +10,4 @@ host_network: true
 options:
   discord_token: ""
 schema:
-  discord_token: str
+  discord_token: "str"
