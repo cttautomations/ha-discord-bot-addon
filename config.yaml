@@ -6,6 +6,6 @@ startup: services
 boot: auto
 host_network: true
 options:
-  discord_token: "MTM1NjA1Njk4MjM2NDIyNTczMQ.GFnwLZ.DO6XewFprv4d9vSR3E0uZXiRwlqaRB0PfORYUw"
+  discord_token: ""
 schema:
   discord_token: str
