@@ -7,6 +7,8 @@ startup: application
 boot: auto
 init: false
 host_network: true
+arch:
+  - aarch64
 options:
   discord_token: ""
 schema:
