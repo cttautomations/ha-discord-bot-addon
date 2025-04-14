@@ -39,7 +39,7 @@ client.on('messageCreate', async (message) => {
   // Match the channel name exactly (case-sensitive emoji name works)
   if (message.channel.name === 'health-and-nutrition🩺') {
     try {
-      await axios.post('http://<YOUR_N8N_HOST>:5678/webhook/health-interaction', {
+      await axios.post('http://raspberrypiself.local:5678/webhook/health-interaction', {
         message: message.content,
         user: message.author.username,
         channel: message.channel.name,
