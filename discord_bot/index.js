@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const fs = require('fs');
+const axios = require('axios'); // Add this if it's not already in your package
 
 // Load Discord token from Home Assistant add-on config
 let config;
@@ -17,11 +18,38 @@ if (!token) {
   process.exit(1);
 }
 
-// Create the Discord client
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+// Create the Discord client with message-related intents
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent // 👈 Required to read actual message text
+  ]
+});
 
 client.once('ready', () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
+});
+
+// Listen for messages in #health-and-nutrition🩺
+client.on('messageCreate', async (message) => {
+  // Ignore other bots
+  if (message.author.bot) return;
+
+  // Match the channel name exactly (case-sensitive emoji name works)
+  if (message.channel.name === 'health-and-nutrition🩺') {
+    try {
+      await axios.post('http://<YOUR_N8N_HOST>:5678/webhook/health-interaction', {
+        message: message.content,
+        user: message.author.username,
+        channel: message.channel.name,
+        timestamp: message.createdAt.toISOString()
+      });
+      console.log(`📤 Message sent to n8n: ${message.content}`);
+    } catch (err) {
+      console.error(`❌ Failed to POST to n8n:`, err.message);
+    }
+  }
 });
 
 // Start the bot
